@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100%;
+  flex: 1 0 auto;
 }
 
 .sidenav {
@@ -13,5 +13,24 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
+}
+
+mat-nav-list mat-icon {
+  vertical-align: sub;
+  margin-right: 5px;
+}
+
+mat-nav-list a {
+  
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.active {
+  border-bottom: 2px solid pink;
 }

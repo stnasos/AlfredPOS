@@ -18,14 +18,6 @@ export class NavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private accountService: AccountService,
-    private snackBar: MatSnackBar) {}
+  constructor(private breakpointObserver: BreakpointObserver, private accountService: AccountService) {}
 
-  login() {
-    this.accountService.login({username: "sakis", password: "asasa"}).subscribe();
-  }
-
-  test() {
-    this.snackBar.open('Test', 'OK');
-  }
 }
