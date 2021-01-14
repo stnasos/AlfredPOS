@@ -1,0 +1,8 @@
+// Import custom components themes
+@import "./app/components/nav/nav.component.scss";
+@import "./custom-styles/mat-card-custom.scss";
+
+@mixin custom-components-theme($theme) {
+    @include nav-theme($theme);
+    @include mat-card-custom-theme($theme);
+}

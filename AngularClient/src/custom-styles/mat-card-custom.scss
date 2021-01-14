@@ -1,0 +1,54 @@
+@import "~@angular/material/theming";
+
+@mixin mat-card-custom-theme($theme) {
+  $color: mat-get-color-config($theme);
+
+  @if $color != null {
+    @include mat-card-custom-color($theme);
+  }
+}
+
+@mixin mat-card-custom-color($theme) {
+  $config: mat-get-color-config($theme);
+
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .mat-card {
+    padding: 0% !important;
+  }
+
+  .mat-card-header {
+    padding: 10px;
+
+    &[color="primary"] {
+      background-color: mat-color($primary);
+    }
+
+    &[color="accent"] {
+      background-color: mat-color($accent);
+    }
+
+    &[color="warn"] {
+      background-color: mat-color($warn);
+    }
+  }
+
+  .mat-card-title {
+    margin: 0 !important;
+    padding: 5px;
+  }
+
+  .mat-card-content {
+    margin: 0 !important;
+    padding-top: 30px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .mat-card-actions {
+    margin-bottom: 10px !important;
+    margin-right: 10px !important;
+  }
+}

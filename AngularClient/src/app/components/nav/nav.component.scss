@@ -1,0 +1,61 @@
+@import "~@angular/material/theming";
+
+@mixin nav-theme($theme) {
+  $color: mat-get-color-config($theme);
+
+  @if $color != null {
+    @include nav-color($theme);
+  }
+}
+
+@mixin nav-color($theme) {
+
+  $config: mat-get-color-config($theme);
+
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .sidenav-container {
+    height: 100%;
+  }
+
+  .sidenav {
+    width: 200px;
+  }
+
+  .mat-toolbar {
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .avatar {
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-left: 15px;
+    padding: 2px;
+    border: solid 2px mat-color($accent);
+  }
+
+  .fullbtn {
+    height: 100%;
+    margin: 0;
+  }
+
+  .mat-list-item {
+    box-sizing: border-box;
+  }
+
+  .mat-nav-list .mat-list-item:hover {
+    color: mat-color($accent);
+    @include mat-elevation(12);
+  }
+  .mat-nav-list .mat-list-item.active {
+    color: mat-color($accent);
+    border-right: 5px solid mat-color($accent);
+  }
+}

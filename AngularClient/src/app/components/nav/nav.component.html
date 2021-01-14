@@ -1,0 +1,63 @@
+<div fxLayout="column" fxFill [class.dark-theme]="isDark">
+  <mat-toolbar *ngIf="accountService.currentUser$ | async as user" class="mat-elevation-z6">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <mat-icon color="accent" aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <a mat-button routerLink="/">Alfred POS+</a>
+    <span fxFlex></span>
+
+    <button class="fullbtn" mat-button [matMenuTriggerFor]="accountMenu">
+      <span fxHide.xs>{{user?.username}}</span>
+      <img class="avatar" src="../../assets/user.png">
+    </button>
+    <mat-menu #accountMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #settingsMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="toggleTheme()">
+        <mat-icon>brightness_medium</mat-icon>
+        {{isDark ? 'Light mode' : 'Dark mode'}}
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false" *ngIf="accountService.currentUser$ | async">
+
+      <mat-nav-list (click)="drawer.mode === 'over' && drawer.close()">
+        <a mat-list-item routerLink="dashboard" routerLinkActive="active">
+          <mat-icon matListIcon>dashboard</mat-icon>
+          <h3 matLine>Dashboard</h3>
+        </a>
+        <a mat-list-item routerLink="users" routerLinkActive="active">
+          <mat-icon matListIcon>people</mat-icon>
+          <h3 matLine>Users</h3>
+        </a>
+        <a mat-list-item routerLink="tables" routerLinkActive="active">
+          <mat-icon matListIcon>deck</mat-icon>
+          <h3 matLine>Deck</h3>
+        </a>
+        <a mat-list-item routerLink="products" routerLinkActive="active">
+          <mat-icon matListIcon>fastfood</mat-icon>
+          <h3 matLine>Products</h3>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <!-- Add Content Here -->
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

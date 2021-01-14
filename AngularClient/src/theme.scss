@@ -1,0 +1,135 @@
+/***********************
+ **   Default theme   ** 
+ ***********************/
+
+$light-primary: mat-palette($mat-grey);
+$light-accent: mat-palette($mat-blue, 800, 700, 900);
+$light-warn: mat-palette($mat-red);
+
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+
+$for-color: map-get($mat-grey, 900);
+$light-foreground: (
+  base: $for-color,
+  divider: rgba($for-color, 0.12),
+  dividers: rgba($for-color, 0.12),
+  disabled: rgba($for-color, 0.38),
+  disabled-button: rgba($for-color, 0.26),
+  disabled-text: rgba($for-color, 0.38),
+  elevation: black,
+  hint-text: rgba($for-color, 0.38),
+  secondary-text: rgba($for-color, 0.54),
+  icon: rgba($for-color, 0.54),
+  icons: rgba($for-color, 0.54),
+  text: rgba($for-color, 0.87),
+  slider-min: rgba($for-color, 0.87),
+  slider-off: rgba($for-color, 0.26),
+  slider-off-active: rgba($for-color, 0.38),
+);
+$light-background: (
+  status-bar: map-get($mat-grey, 300),
+  app-bar: map-get($mat-grey, 500),
+  //map-get($mat-grey, 100),
+  background: map-get($mat-grey, 300),
+  //map-get($mat-grey, 50),
+  hover: rgba(black, 0.04),
+  // TODO(kara): check style with Material Design UX
+  card: map-get($mat-grey, 400),
+  //white,
+  dialog: map-get($mat-grey, 500),
+  //rgb(221, 221, 221),
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: rgba(black, 0.12),
+  selected-button: map-get($mat-grey, 300),
+  selected-disabled-button: map-get($mat-grey, 400),
+  disabled-button-toggle: map-get($mat-grey, 200),
+  unselected-chip: map-get($mat-grey, 300),
+  disabled-list-option: map-get($mat-grey, 200),
+  tooltip: map-get($mat-grey, 700),
+);
+
+$light-theme: map-merge(
+  $light-theme,
+  (
+    foreground: $light-foreground,
+  )
+);
+$light-theme: map-merge(
+  $light-theme,
+  (
+    background: $light-background,
+  )
+);
+
+/*********************
+ **   Dark theme    **
+ *********************/
+
+$dark-primary: mat-palette($mat-grey, 900, 700, 900);
+$dark-accent: mat-palette($mat-cyan);
+$dark-warn: mat-palette($mat-deep-orange);
+
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$dark-color: map-get($mat-grey, 400);
+$dark-foreground: (
+  base: $dark-color,
+  divider: rgba($dark-color, 0.12),
+  dividers: rgba($dark-color, 0.12),
+  disabled: rgba($dark-color, 0.5),
+  disabled-button: rgba($dark-color, 0.3),
+  disabled-text: rgba($dark-color, 0.5),
+  elevation: black,
+  hint-text: rgba($dark-color, 0.5),
+  secondary-text: rgba($dark-color, 0.7),
+  icon: $dark-color,
+  icons: $dark-color,
+  text: $dark-color,
+  slider-min: $dark-color,
+  slider-off: rgba($dark-color, 0.3),
+  slider-off-active: rgba($dark-color, 0.3),
+);
+$dark-background: (
+  status-bar: black,
+  app-bar: map-get($mat-grey, 900),
+  background: map-get($mat-grey, 700),
+  hover: rgba(black, 0.04),
+  // TODO(kara): check style with Material Design UX
+  card: map-get($mat-grey, 800),
+  dialog: map-get($mat-grey, 900),
+  //map-get($mat-grey, 800),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: rgba(black, 0.52),
+  selected-button: black, //map-get($mat-grey, 900),
+  selected-disabled-button: map-get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map-get($mat-grey, 700),
+  disabled-list-option: black,
+  tooltip: map-get($mat-grey, 700),
+);
+
+$dark-theme: map-merge(
+  $dark-theme,
+  (
+    foreground: $dark-foreground,
+  )
+);
+
+$dark-theme: map-merge(
+  $dark-theme,
+  (
+    background: $dark-background,
+  )
+);
+
+/********************
+ **   Typography   **
+ ********************/
+
+$app-typography: mat-typography-config(
+  $font-family: "Roboto, Helvetica arial",
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500),
+);

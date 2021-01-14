@@ -1,0 +1,5 @@
+@mixin current-colors($theme) {
+    $primary: mat-color($AngularClient-primary);
+    $accent: mat-color($AngularClient-accent);
+    $warn: mat-color($AngularClient-warn);
+}
