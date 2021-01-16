@@ -16,44 +16,43 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError(error => {
-        if(error) {
-          switch (error.status) {
+      catchError(errorResponse => {
+        if(errorResponse) {
+          switch (errorResponse.status) {
+            case 0:
+              this.snackBar.open(errorResponse.statusText, 'OK');
+              break;
             case 400:
-              if(error.error.errors) {
+              if(errorResponse.error.errors) {
                 const modalStateErrors = [];
-                for (const key in error.error.errors) {
-                  if (error.error.errors[key]) {
-                    modalStateErrors.push(error.error.errors[key]);
+                for (const key in errorResponse.error.errors) {
+                  if (errorResponse.error.errors[key]) {
+                    modalStateErrors.push(errorResponse.error.errors[key]);
                   }
                 }
-                this.snackBar.open(modalStateErrors.join(), 'OK');
-                throw modalStateErrors.flat();
+                // TODO: create a better template for snackBar messages
+                this.snackBar.open(modalStateErrors.join('\n'), 'OK');
+                //throw modalStateErrors.flat();
               } else {
-                this.snackBar.open(error.error + ' ' + error.status, 'OK');
-                console.error(error.error + ' ' + error.status);
+                this.snackBar.open(errorResponse.error + ' ' + errorResponse.status, 'OK');
               }
               break;
             case 401:
-              this.snackBar.open((error.statusText === 'OK' ? 'Unauthorised' : error.statusText) + ' '  + error.status, 'OK');
-              console.error((error.statusText === 'OK' ? 'Unauthorised' : error.statusText) + ' '  + error.status);
+              this.snackBar.open(errorResponse.status + ' ' + errorResponse.error, 'OK');
               break;
             case 404:
               this.snackBar.open('Not Found', 'OK');
-              console.info('Not Found');
               break;
             case 500:
-              this.snackBar.open(error.error, 'OK');
-              console.error(error.error);
+              this.snackBar.open(errorResponse.error, 'OK');
               break;
             default:
-              this.snackBar.open(error, 'OK');
-              console.error(error);
+              this.snackBar.open(errorResponse, 'OK');
               break;
           }
         }
 
-        return throwError(error);
+        return throwError(errorResponse);
       })
     )
   }

@@ -4,7 +4,9 @@
       <mat-icon color="accent" aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <a mat-button routerLink="/">Alfred POS+</a>
-    <span fxFlex></span>
+    <span fxFlex style="text-align: center;">
+      <h1 class="mat-h1" *ngIf="(isHandset$ | async) === false">{{ routeTitle }}</h1>
+    </span>
 
     <button class="fullbtn" mat-button [matMenuTriggerFor]="accountMenu">
       <span fxHide.xs>{{user?.username}}</span>
