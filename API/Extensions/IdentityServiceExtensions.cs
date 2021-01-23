@@ -22,7 +22,8 @@ namespace API.Extensions
                 .AddRoleManager<RoleManager<AppRole>>()
                 .AddSignInManager<SignInManager<AppUser>>()
                 .AddRoleValidator<RoleValidator<AppRole>>()
-                .AddEntityFrameworkStores<DataContext>();
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -35,6 +36,12 @@ namespace API.Extensions
                     };
                 });
             
+            services.AddAuthorization(opt => 
+            {
+                opt.AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("RequireAdminManager", policy => policy.RequireRole("Admin", "Manager"));
+            });
+
             return services;
         }
     }

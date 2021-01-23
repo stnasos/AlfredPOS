@@ -31,6 +31,9 @@ namespace API.Data
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
 
+            builder.Entity<AppUser>()
+                .HasQueryFilter(u => !u.Deleted);
+
             builder.ApplyUtcDateTimeConverter();
         }
     }

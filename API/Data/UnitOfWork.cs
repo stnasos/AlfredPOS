@@ -16,14 +16,14 @@ namespace API.Data
 
         public IUserRepository UserRepository => new UserRepository(_context, _mapper);
 
-        public Task<bool> Complete()
+        public async Task<bool> Complete()
         {
-            throw new System.NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public bool HasChanges()
         {
-            throw new System.NotImplementedException();
+            return _context.ChangeTracker.HasChanges();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -29,13 +30,33 @@ namespace API.Data
             return await _context.Users.SingleOrDefaultAsync(u => u.NormalizedUserName == username.ToUpper());
         }
 
-        public async Task<IEnumerable<EmployeeDto>> GetUsersAsync()
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public async Task<EmployeeDto> GetEmployeeAsync(string username)
+        {
+            return await _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .Where(u => u.NormalizedUserName == username.ToUpper())
+                .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync()
         {
             return await _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public void Update(AppUser user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
         }
     }
 }
