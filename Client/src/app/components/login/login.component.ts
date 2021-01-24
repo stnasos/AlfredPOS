@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.accountService.login(this.model).subscribe(response => {
+    this.accountService.login(this.model).subscribe(() => {
       this.loginForm.reset();
       this.router.navigateByUrl('dashboard');
     });

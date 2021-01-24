@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/User';
 import { AccountService } from '../services/account.service';
 
 @Injectable({
@@ -14,26 +15,19 @@ export class AuthGuard implements CanActivate {
     private snackBar: MatSnackBar,
     private router: Router) { }
 
-  canActivate(): Observable<boolean> | boolean | UrlTree {
-    let res!: boolean;
-    
-    this.accountService.currentUser$.pipe(map(user => {
-      if (user) return true;
-      return false;
-    })).subscribe(auth => {
-      res = auth;
-    }).unsubscribe();
+  canActivate(): Observable<boolean | UrlTree> {
 
-    if (res) {
-      return true;
-    } else {
-      this.snackBar.open('Unauthorized', '', {
-        duration: 2000,
-        panelClass: 'error',
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom'
-      });
-      return this.router.parseUrl('/login');
-    }
+    return this.accountService.currentUser$.pipe(
+      map((user: User) => {
+        if (user) return true;
+        this.snackBar.open('Unauthorized', 'OK', {
+          duration: 2000,
+          panelClass: 'error',
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+        return this.router.parseUrl('login');
+      })
+    );
   }
 }
