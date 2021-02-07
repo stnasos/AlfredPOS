@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AccountService } from '../../services/account.service';
@@ -12,11 +12,12 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer: any;
   isDark = true;
   title = 'Alfred POS';
   routeTitle = '';
+  navSubscription!: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,10 +32,14 @@ export class NavComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private activatedRoute: ActivatedRoute) {}
+
+  ngOnDestroy(): void {
+    this.navSubscription.unsubscribe();
+  }
   
   ngOnInit(): void {
     this.overlayContainer.getContainerElement().classList.add('dark-theme');
-    this.router.events.pipe(
+    this.navSubscription = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       const childRoute = this.getChild(this.activatedRoute);

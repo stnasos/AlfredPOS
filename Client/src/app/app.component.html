@@ -1,1 +1,4 @@
+<div fxLayout fxLayoutAlign="center center" class="loading" *ngIf="(loadingService.isLoading$ | async)">
+    <mat-spinner color="accent"></mat-spinner>
+</div>
 <app-nav></app-nav>

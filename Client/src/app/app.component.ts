@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/User';
 import { AccountService } from './services/account.service';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { AccountService } from './services/account.service';
 export class AppComponent implements OnInit {
   title = 'Alfred POS+';
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, public loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.setCurrentUser();

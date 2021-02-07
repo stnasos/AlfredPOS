@@ -18,6 +18,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { UtcDateDirective } from './directives/utc-date.directive';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     TableListComponent,
     ProductListComponent,
     DashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UtcDateDirective
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
   providers: [
     Title,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

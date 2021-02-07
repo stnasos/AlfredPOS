@@ -40,6 +40,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             case 401:
               this.snackBar.open(errorResponse.status + ' ' + errorResponse.error, 'OK');
               break;
+            case 403:
+              this.snackBar.open(errorResponse.status + ' ' + errorResponse.error, 'OK');
+              break;
             case 404:
               this.snackBar.open('Not Found', 'OK');
               break;

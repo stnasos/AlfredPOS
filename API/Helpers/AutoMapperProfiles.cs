@@ -10,8 +10,8 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<RegisterDto, AppUser>()
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
-                    src.DateOfBirth.Date))
+                // .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                //     src.DateOfBirth.Date))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src =>
                     src.Username.ToLower()));
             CreateMap<AppUser, EmployeeDto>()

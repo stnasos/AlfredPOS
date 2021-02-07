@@ -4,5 +4,5 @@
 
 @mixin custom-components-theme($theme) {
     @include nav-theme($theme);
-    @include mat-card-custom-theme($theme);
+    // @include mat-card-custom-theme($theme);
 }

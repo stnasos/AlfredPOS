@@ -2,14 +2,21 @@
   padding: 20px;
 }
 
-.mat-card {
-  max-width: 400px;
-}
-
 .mat-card-content {
-  text-align: center;
+  max-width: 800px;
+  margin-top: 30px;
 }
 
 .mat-form-field {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.mat-card-actions {
   width: 100%;
+  margin-bottom: 0;
+}
+
+.mat-icon {
+  margin: 0 8px;
 }
